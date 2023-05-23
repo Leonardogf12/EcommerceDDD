@@ -10,3 +10,8 @@ D:\PROJETOS\EcommerceDDD\EcommerceDDD\Infrastructure\obj\Debug\net7.0\Infrastruc
 D:\PROJETOS\EcommerceDDD\EcommerceDDD\Infrastructure\obj\Debug\net7.0\refint\Infrastructure.dll
 D:\PROJETOS\EcommerceDDD\EcommerceDDD\Infrastructure\obj\Debug\net7.0\Infrastructure.pdb
 D:\PROJETOS\EcommerceDDD\EcommerceDDD\Infrastructure\obj\Debug\net7.0\ref\Infrastructure.dll
+D:\PROJETOS\EcommerceDDD\EcommerceDDD\Infrastructure\bin\Debug\net7.0\Domain.dll
+D:\PROJETOS\EcommerceDDD\EcommerceDDD\Infrastructure\bin\Debug\net7.0\Entities.dll
+D:\PROJETOS\EcommerceDDD\EcommerceDDD\Infrastructure\bin\Debug\net7.0\Domain.pdb
+D:\PROJETOS\EcommerceDDD\EcommerceDDD\Infrastructure\bin\Debug\net7.0\Entities.pdb
+D:\PROJETOS\EcommerceDDD\EcommerceDDD\Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.CopyComplete
