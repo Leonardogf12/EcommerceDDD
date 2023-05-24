@@ -1,0 +1,2 @@
+Comando para criar somente as entidades do Contexto Base para uso do Identity.
+> Add-Migration Inicio -Context ContextBase

@@ -9,6 +9,8 @@ namespace Infrastructure.Configuration
         public ContextBase(DbContextOptions<ContextBase> options) : base(options) { }
 
         public DbSet<Product> Product { get; set; }
+        //public DbSet<User> User { get; set; }
+        public DbSet<UserPurchase> UserPurchase { get; set; }
 
 
         //*CONFIGURACAO DA STRING DE CONEXAO.

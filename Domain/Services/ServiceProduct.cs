@@ -26,7 +26,7 @@ namespace Domain.Services
 
             if(validaNome && validaValor)
             {
-                product.State = true;
+                product.Status = true;
                 await _product.Add(product);
             }
         }
@@ -39,7 +39,7 @@ namespace Domain.Services
 
             if (validaNome && validaValor)
             {
-                product.State = true;
+                product.Status = true;
                 await _product.Update(product);
             }
         }
