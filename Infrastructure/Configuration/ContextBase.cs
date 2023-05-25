@@ -1,20 +1,31 @@
 ﻿using Entities.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Configuration
 {
-    public class ContextBase : IdentityDbContext<User>
+    public class ContextBase : IdentityDbContext<IdentityUser>//*
     {
         public ContextBase(DbContextOptions<ContextBase> options) : base(options) { }
 
         public DbSet<Product> Product { get; set; }
-        //public DbSet<User> User { get; set; }
+       
         public DbSet<UserPurchase> UserPurchase { get; set; }
 
+        public DbSet<IdentityUser> IdentityUser { get; set; } //*
+
+       
+        protected override void OnModelCreating(ModelBuilder builder) //*
+        {
+            //*INFORMA AO ASPNET CORE QUEM É A CHAVE PRIMARIA
+            builder.Entity<IdentityUser>().ToTable("AspNetUsers").HasKey(t=>t.Id);
+
+            base.OnModelCreating(builder);
+        }
 
         //*CONFIGURACAO DA STRING DE CONEXAO.
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) //*
         {
             if (!optionsBuilder.IsConfigured)
             {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Entities
 {
-    [Table("UserPurchase")]
+    [Table("USER_PURCHASE")]
     public class UserPurchase : Notifies
     {
         [Column("USXPU_ID", Order = 0)]

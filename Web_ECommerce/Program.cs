@@ -1,15 +1,41 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Configuration;
-
+using Domain.Interfaces.Generics;
+using Infrastructure.Repository.Generics;
+using Domain.Interfaces.InterfaceProduct;
+using Infrastructure.Repository.Repositories;
+using Domain.Interfaces.InterfaceServices;
+using Domain.Services;
+using ApplicationApp.Interfaces;
+using ApplicationApp.OpenApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//STRING DE CONEXAO MYSQL
+#region STRING CONEXAO MYSQL
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ContextBase>(options =>
     options.UseMySql(connectionString, ServerVersion.Parse("8.0.29")));
 
+#endregion
+
+#region INJECAO DE DEPENDENCIA
+
+//*É MINHA LIGACAO DA INTERFACE COM REPOSITORIO.
+builder.Services.AddSingleton(typeof(IGenerics<>), typeof(RepositoryGenerics<>));
+
+//*INTERFACE DE PRODUTO.
+builder.Services.AddSingleton<IProduct, RepositoryProduct>();
+
+//*INTERFACE DA APLICAÇAO.
+builder.Services.AddSingleton<InterfaceProductApp, AppProduct>();
+
+//*SERVICO DO DOMINIO.
+builder.Services.AddSingleton<IServiceProduct, ServiceProduct>();
+
+
+#endregion
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

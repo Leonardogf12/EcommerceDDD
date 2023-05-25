@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Entities
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<string>
     {
        
         [Column("USR_CPF", Order = 0)]
@@ -54,6 +54,6 @@ namespace Entities.Entities
 
         [Column("USR_TYPE")]
         [DisplayName("Tipo")]
-        public EnumUserType EnumUserType { get; set; } //*ENUM
+        public EnumUserType? EnumUserType { get; set; } //*ENUM
     }
 }
