@@ -13,7 +13,6 @@ namespace ApplicationApp.OpenApp
 {
     public class AppProduct : InterfaceProductApp
     {
-
         IProduct _IProduct;
         IServiceProduct _IServiceProduct;
 
@@ -23,6 +22,7 @@ namespace ApplicationApp.OpenApp
             _IServiceProduct = IServiceProduct;
         }
 
+        #region CONSULTAS CUSTOMIZADAS
 
         public async Task AddProduct(Product product)
         {
@@ -34,6 +34,14 @@ namespace ApplicationApp.OpenApp
             await _IServiceProduct.UpdateProduct(product);
         }
 
+        public async Task<List<Product>> ListProductsUser(string idUser)
+        {
+            return await _IProduct.ListProductsUser(idUser);
+        }
+
+        #endregion
+
+        #region CONSULTAS PADRAO
 
         public async Task Add(Product product)
         {
@@ -58,6 +66,8 @@ namespace ApplicationApp.OpenApp
         public async Task Update(Product product)
         {
             await _IProduct.Update(product);
-        }        
+        }
+
+        #endregion
     }
 }

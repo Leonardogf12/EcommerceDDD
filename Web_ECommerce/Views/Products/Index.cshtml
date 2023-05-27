@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Entities.Entities.Product>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Produtos";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Novo Produto</a>
 </p>
 <table class="table">
     <thead>

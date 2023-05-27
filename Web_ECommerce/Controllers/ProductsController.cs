@@ -1,6 +1,7 @@
 ﻿using ApplicationApp.Interfaces;
 using Entities.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web_ECommerce.Controllers
@@ -9,19 +10,23 @@ namespace Web_ECommerce.Controllers
     [Authorize]
     public class ProductsController : Controller
     {
+        public readonly UserManager<User> _userManager;
+
         public readonly InterfaceProductApp _InterfaceProductApp;
 
-        public ProductsController(InterfaceProductApp interfaceProductApp)
+        public ProductsController(InterfaceProductApp interfaceProductApp, UserManager<User> userManager)
         {
             _InterfaceProductApp = interfaceProductApp;
-            
+            _userManager = userManager;            
         }
 
         #region GETS
 
         public async Task<IActionResult> Index()
         {
-            return View(await _InterfaceProductApp.List());
+            var idUser = await GetIdUserLogged();
+
+            return View(await _InterfaceProductApp.ListProductsUser(idUser));
         }
 
         public async Task<IActionResult> Details(int id)
@@ -55,6 +60,9 @@ namespace Web_ECommerce.Controllers
         {
             try
             {
+
+                product.UserId = await GetIdUserLogged();
+                
                 await _InterfaceProductApp.AddProduct(product);
 
                 if (product.Notifications.Any())
@@ -64,12 +72,12 @@ namespace Web_ECommerce.Controllers
                         ModelState.AddModelError(erro.NameProperty, erro.Message);
                     }
 
-                    return View("Edit", product);
+                    return View("Create", product);
                 }
             }
             catch (Exception e)
             {
-                return View("Edit", product);
+                return View("Create", product);
             }
 
             return RedirectToAction(nameof(Index));
@@ -116,6 +124,17 @@ namespace Web_ECommerce.Controllers
             {
                 return View();
             }
+        }
+
+        #endregion
+
+        #region COMUM
+
+        private async Task<string> GetIdUserLogged()
+        {
+            var idUser = await _userManager.GetUserAsync(User);
+
+            return idUser != null ? idUser.Id : string.Empty;
         }
 
         #endregion

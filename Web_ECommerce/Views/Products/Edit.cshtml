@@ -12,11 +12,10 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
+
+            <input asp-for="Id" type="hidden" />
+            <input asp-for="UserId" type="hidden" />
+          
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -41,12 +40,7 @@
                 <label asp-for="Stock" class="control-label"></label>
                 <input asp-for="Stock" class="form-control" />
                 <span asp-validation-for="Stock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
+            </div>          
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
                 <input asp-for="Status" class="form-control" />
@@ -54,24 +48,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateRegister" class="control-label"></label>
-                <input asp-for="DateRegister" class="form-control" />
-                <span asp-validation-for="DateRegister" class="text-danger"></span>
+                <input asp-for="DateRegister" class="form-control" readonly/>             
             </div>
             <div class="form-group">
                 <label asp-for="DateChange" class="control-label"></label>
-                <input asp-for="DateChange" class="form-control" />
-                <span asp-validation-for="DateChange" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NameProperty" class="control-label"></label>
-                <input asp-for="NameProperty" class="form-control" />
-                <span asp-validation-for="NameProperty" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Message" class="control-label"></label>
-                <input asp-for="Message" class="form-control" />
-                <span asp-validation-for="Message" class="text-danger"></span>
-            </div>
+                <input asp-for="DateChange" class="form-control" readonly />               
+            </div>          
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

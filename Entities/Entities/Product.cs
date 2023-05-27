@@ -43,7 +43,7 @@ namespace Entities.Entities
 
         [Column("PRO_STATUS")]
         [DisplayName("Status")]
-        public bool? Status { get; set; }
+        public bool Status { get; set; }
 
         [Column("PRO_DATE_REGISTER")]
         [DisplayName("Data de Cadastro")]        
