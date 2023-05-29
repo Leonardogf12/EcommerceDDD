@@ -39,6 +39,11 @@ namespace ApplicationApp.OpenApp
             return await _IProduct.ListProductsUser(idUser);
         }
 
+        public async Task<List<Product>> ListProductsWithStock()
+        {
+            return await _IServiceProduct.ListProductsWithStock();
+        }
+
         #endregion
 
         #region CONSULTAS PADRAO
@@ -67,6 +72,8 @@ namespace ApplicationApp.OpenApp
         {
             await _IProduct.Update(product);
         }
+
+       
 
         #endregion
     }

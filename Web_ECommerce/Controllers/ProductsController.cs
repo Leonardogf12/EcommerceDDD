@@ -138,5 +138,23 @@ namespace Web_ECommerce.Controllers
         }
 
         #endregion
+
+        #region APIS
+
+        [AllowAnonymous]
+        [HttpGet("api/ListProductsWithStock")]
+        public async Task<JsonResult> ListProductsWithStock()
+        {
+            return Json(await _InterfaceProductApp.ListProductsWithStock());
+        }
+
+        [AllowAnonymous]
+        [HttpPost("api/AddProductCart")]
+        public async Task AddProductCart(string id, string name, string qtd)
+        {
+           ////
+        }
+
+        #endregion
     }
 }

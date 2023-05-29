@@ -9,5 +9,7 @@ namespace ApplicationApp.Interfaces
         Task UpdateProduct(Product product);
 
         Task<List<Product>> ListProductsUser(string idUser);
+
+        Task<List<Product>> ListProductsWithStock();
     }
 }

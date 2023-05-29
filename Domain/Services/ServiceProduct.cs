@@ -4,6 +4,7 @@ using Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +37,8 @@ namespace Domain.Services
             }
         }
 
+        
+
         public async Task UpdateProduct(Product product)
         {
             var validateName = product.ValidatePropertyString(product.Name, "Name");
@@ -50,5 +53,12 @@ namespace Domain.Services
                 await _product.Update(product);
             }
         }
+
+        public async Task<List<Product>> ListProductsWithStock()
+        {
+            return await _product.ListProducts(x=>x.Stock > 0);
+        }
+
+        
     }
 }
