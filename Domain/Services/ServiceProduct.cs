@@ -36,9 +36,7 @@ namespace Domain.Services
                 await _product.Add(product);
             }
         }
-
         
-
         public async Task UpdateProduct(Product product)
         {
             var validateName = product.ValidatePropertyString(product.Name, "Name");
@@ -57,8 +55,6 @@ namespace Domain.Services
         public async Task<List<Product>> ListProductsWithStock()
         {
             return await _product.ListProducts(x=>x.Stock > 0);
-        }
-
-        
+        }        
     }
 }

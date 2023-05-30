@@ -10,6 +10,7 @@ using Infrastructure.Repository.Generics;
 using Infrastructure.Repository.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Domain.Interfaces.InterfaceUserBuy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,11 +30,18 @@ builder.Services.AddSingleton(typeof(IGenerics<>), typeof(RepositoryGenerics<>))
 //*INTERFACE DE PRODUTO.
 builder.Services.AddSingleton<IProduct, RepositoryProduct>();
 
+//*INTERFACE DE USERBUY.
+builder.Services.AddSingleton<IUserBuy, RepositoryUserBuy>();
+
 //*INTERFACE DA APLICA�AO.
 builder.Services.AddSingleton<InterfaceProductApp, AppProduct>();
+builder.Services.AddSingleton<InterfaceUserBuyApp, AppUserBuy>();
 
 //*SERVICO DO DOMINIO.
 builder.Services.AddSingleton<IServiceProduct, ServiceProduct>();
+
+//*INTERFACE DA APLICA�AO.
+
 
 
 #endregion

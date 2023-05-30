@@ -1,2 +1,42 @@
 Comando para criar somente as entidades do Contexto Base para uso do Identity.
 > Add-Migration Inicio -Context ContextBase
+
+-------------------------------------------------------------------------------
+
+Passos para criacao da uma interface EXEMPLO USADO, INTERFACE ( IUserBuy )
+
+1- No projeto Domain, crie uma pasta com nome de "InterfaceUserBuy".
+
+2- Dentro da pasta InterfaceUserBuy, crie um arquivo de interface com nome de
+   IUserBuy.
+
+3- Esta interface herdará da interface IGenerics da Pasta Generics do projeto 
+   Domain, juntamente com a classe UserPurchase do projeto Entites.
+
+4- Agora no projeto Infra, abra a pasta Repository, depois Repositories e crie 
+   uma classe com o nome de RepositoryUserBuy.
+
+5- A classe RepositoryUserBuy deverá herdar de RepositoryGenerics com o objeto 
+   de UserPurchase assim >>> RepositoryUserBuy : RepositoryGenerics<UserPurchase>
+
+6- Agora essa classe deverá herdar da Interface criada no Domain, e ficará 
+   assim >>> public class RepositoryUserBuy : RepositoryGenerics<UserPurchase>, IUserBuy
+
+7- Agora no projeto Application, dentro da pasta Interfaces, crie um arquivo 
+   de interface com o nome InterfaceUserBuyApp, esta interface herdará da InterfaceGenericApp 
+   com o Objeto UserPurchase assim>>> public interface InterfaceUserBuyApp : InterfaceGenericApp<UserPurchase>
+
+8- Ainda no projeto Application, na pasta OpenApp, crie uma classe com o nome 
+   de AppUserBuy,  essa classe herdará da InterfaceUserBuy 
+   assim >>> public class AppUserBuy : InterfaceUserBuyApp, de Ctrl + . para add
+   todos métodos.
+
+9- Agora no projeto Presentarion, na classe Program, na sessao de Injecao de Dependencia
+   adicione o IUserBuy com RepositoryUserBuy assim >>>  builder.Services.AddSingleton<IUserBuy, RepositoryUserBuy>();
+
+10- Ainda na classe Program adicione a injecao de dependencia da InterfaceUserBuyApp
+    assim >>> builder.Services.AddSingleton<InterfaceUserBuyApp, AppUserBuy>();
+
+11- Para dar seguimento, agora na pasta controller do projeto Presentation, crie 
+    uma controller com o nome de UserBuyController.
+-------------------------------------------------------------------------------

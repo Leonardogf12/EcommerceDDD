@@ -14,7 +14,7 @@ namespace ApplicationApp.OpenApp
     public class AppProduct : InterfaceProductApp
     {
         IProduct _IProduct;
-        IServiceProduct _IServiceProduct;
+        IServiceProduct _IServiceProduct;        
 
         public AppProduct(IProduct IProduct, IServiceProduct IServiceProduct)
         {
@@ -72,9 +72,7 @@ namespace ApplicationApp.OpenApp
         {
             await _IProduct.Update(product);
         }
-
        
-
         #endregion
     }
 }
