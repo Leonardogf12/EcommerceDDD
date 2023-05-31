@@ -18,6 +18,16 @@ namespace ApplicationApp.OpenApp
             _IUserbuy = IUserbuy;
         }
 
+        #region CONSULTAS CUSTOMIZADAS
+
+        public async Task<int> QtyProductCartUser(string idUser)
+        {
+            return await _IUserbuy.QtyProductCartUser(idUser);
+        }
+
+        #endregion
+
+        #region CONSULTAS PADRAO
 
         public async Task Add(UserPurchase Object)
         {
@@ -43,5 +53,7 @@ namespace ApplicationApp.OpenApp
         {
             await _IUserbuy.Update(Object);
         }
+
+        #endregion        
     }
 }

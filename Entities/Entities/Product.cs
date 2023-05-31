@@ -52,5 +52,11 @@ namespace Entities.Entities
         [Column("PRO_DATE_CHANGE")]
         [DisplayName("Data de Alteração")]
         public DateTime DateChange { get; set; }
+
+        [NotMapped]
+        public int IdProductCart { get; set; }
+
+        [NotMapped]
+        public int QtyBuy { get; set; }
     }
 }

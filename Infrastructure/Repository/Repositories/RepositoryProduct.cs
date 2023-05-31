@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces.InterfaceProduct;
 using Entities.Entities;
+using Entities.Enums;
 using Infrastructure.Configuration;
 using Infrastructure.Repository.Generics;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,54 @@ namespace Infrastructure.Repository.Repositories
             using (var db = new ContextBase(_optionsBuilder))
             {
                 return await db.Product.Where(exProdut).AsNoTracking().ToListAsync();
+            }
+        }
+
+        public async Task<List<Product>> ListProductsUserCart(string idUser)
+        {
+            using (var db = new ContextBase(_optionsBuilder))
+            {
+                var productsUserCart = await (from pr in db.Product
+                                              join up in db.UserPurchase on pr.Id equals up.ProductId
+                                              where up.UserId.Equals(idUser)
+                                              && up.EnumPurchaseStatus == EnumPurchaseStatus.Produto_Carrinho
+                                              select new Product
+                                              {
+                                                  Id = pr.Id,
+                                                  Name = pr.Name,
+                                                  Description = pr.Description,
+                                                  Observation = pr.Observation,
+                                                  Value = pr.Value,
+                                                  QtyBuy = up.QtyPurchase,
+                                                  IdProductCart = up.Id,
+
+                                              }).AsNoTracking().ToListAsync();
+
+                return productsUserCart;
+            }
+        }
+
+        public async Task<Product> GetProductCart(int idProductCart)
+        {
+            using (var db = new ContextBase(_optionsBuilder))
+            {
+                var productUserCart = await (from pr in db.Product
+                                              join up in db.UserPurchase on pr.Id equals up.ProductId
+                                              where up.Id.Equals(idProductCart)
+                                              && up.EnumPurchaseStatus == EnumPurchaseStatus.Produto_Carrinho
+                                              select new Product
+                                              {
+                                                  Id = pr.Id,
+                                                  Name = pr.Name,
+                                                  Description = pr.Description,
+                                                  Observation = pr.Observation,
+                                                  Value = pr.Value,
+                                                  QtyBuy = up.QtyPurchase,
+                                                  IdProductCart = up.Id,
+
+                                              }).AsNoTracking().FirstOrDefaultAsync();
+
+                return productUserCart;
             }
         }
     }

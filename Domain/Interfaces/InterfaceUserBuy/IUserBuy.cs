@@ -5,5 +5,6 @@ namespace Domain.Interfaces.InterfaceUserBuy
 {
     public interface IUserBuy : IGenerics<UserPurchase>
     {
+        Task<int> QtyProductCartUser(string idUser);
     }
 }

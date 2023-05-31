@@ -3,6 +3,7 @@ using Entities.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 
 namespace Web_ECommerce.Controllers
 {
@@ -14,9 +15,14 @@ namespace Web_ECommerce.Controllers
 
         public readonly InterfaceProductApp _InterfaceProductApp;
 
-        public ProductsController(InterfaceProductApp interfaceProductApp, UserManager<User> userManager)
+        public readonly InterfaceUserBuyApp _InterfaceUserBuyApp;
+
+        public ProductsController(InterfaceProductApp interfaceProductApp,
+            InterfaceUserBuyApp interfaceUserBuyApp,
+            UserManager<User> userManager)
         {
             _InterfaceProductApp = interfaceProductApp;
+            _InterfaceUserBuyApp = interfaceUserBuyApp;
             _userManager = userManager;            
         }
 
@@ -98,6 +104,10 @@ namespace Web_ECommerce.Controllers
                         ModelState.AddModelError(erro.NameProperty, erro.Message);
                     }
 
+                    ViewBag.Alert = true;
+                    ViewBag.Message = "Verifique, algo deu errado.";
+
+
                     return View("Edit", product);
                 }
             }
@@ -137,6 +147,35 @@ namespace Web_ECommerce.Controllers
             return idUser != null ? idUser.Id : string.Empty;
         }
 
+        public async Task<IActionResult> ListProductsCart()
+        {
+            var idUser = await _userManager.GetUserAsync(User);
+
+            return View(await _InterfaceProductApp.ListProductsUserCart(idUser.Id));
+        }
+
+        public async Task<IActionResult> RemoveProductCart(int id)
+        {
+            return View(await _InterfaceProductApp.GetProductCart(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveProductCart(int id, Product product)
+        {
+            try
+            {
+                var productDel = await _InterfaceUserBuyApp.GetEntityById(id);
+                await _InterfaceUserBuyApp.Delete(productDel);
+
+                return RedirectToAction(nameof(ListProductsCart));
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+        }
+
         #endregion
 
         #region APIS
@@ -147,7 +186,9 @@ namespace Web_ECommerce.Controllers
         {
             return Json(await _InterfaceProductApp.ListProductsWithStock());
         }
-        
+
         #endregion
+
+        
     }
 }

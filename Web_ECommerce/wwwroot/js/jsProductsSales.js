@@ -15,9 +15,9 @@ objectSale.AddProductInCart = function (idProduct) {
         data: { "id": idProduct, "name": name, "qty": qty },
         success: function (data) {
             if (data.success) {
-                alert("ADICIONADO.");
+                ObjectAlert.AlertView(1, "Produto adicionado no carrinho.");
             } else {
-                alert("USUARIO NAO LOGADO.");
+                ObjectAlert.AlertView(2, "Usuário não logado.");
             }
         }
     });
@@ -59,6 +59,29 @@ objectSale.LoadProducts = function (){
 
 }
 
+objectSale.LoadQtyCart = function () {
+
+    $("#qtyCart").text(0);
+
+    
+    $.ajax({
+
+        type: 'GET',
+        url: 'api/GetQtyProductsUserCart',
+        dataType: 'JSON',
+        cache: false,
+        async: true,
+        success: function (data) {                      
+            if (data) {
+                $("#qtyCart").text(data.qtd);
+            }
+        }
+    });
+    setTimeout(objectSale.LoadQtyCart, 10000);
+}
+
 $(function () {
     objectSale.LoadProducts();
+
+    objectSale.LoadQtyCart();
 });

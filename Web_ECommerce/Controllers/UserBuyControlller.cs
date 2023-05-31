@@ -42,6 +42,21 @@ namespace Web_ECommerce.Controllers
 
             return Json(new { success = false});
         }
+       
+        [HttpGet("api/GetQtyProductsUserCart")]
+        public async Task<JsonResult> GetQtyProductsUserCart()
+        {
+            var userLogged = await _userManager.GetUserAsync(User);
+            var qty = 0;
+
+            if (userLogged != null)
+            {
+                qty = await _InterfaceUserBuyApp.QtyProductCartUser(userLogged.Id);               
+            
+            return Json(new { success = true, qtd = qty });
+            }   
+            return Json(new { success = false, qtd = qty });
+        }
 
         #endregion
 
