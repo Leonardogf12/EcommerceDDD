@@ -56,6 +56,7 @@ namespace Infrastructure.Repository.Repositories
                                                   Value = pr.Value,
                                                   QtyBuy = up.QtyPurchase,
                                                   IdProductCart = up.Id,
+                                                  Url = pr.Url
 
                                               }).AsNoTracking().ToListAsync();
 
@@ -80,6 +81,7 @@ namespace Infrastructure.Repository.Repositories
                                                   Value = pr.Value,
                                                   QtyBuy = up.QtyPurchase,
                                                   IdProductCart = up.Id,
+                                                  Url = pr.Url
 
                                               }).AsNoTracking().FirstOrDefaultAsync();
 

@@ -11,6 +11,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Entities.Entities;
+using Entities.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -114,6 +115,12 @@ namespace Web_ECommerce.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                //*CUSTOMIZACAO.
+                //*PODERIA INCLUIR OS OUTROS CAMPOS CUSTOMIZADOS, COMO POR EXEMPLO CPF.
+                user.Status = true;
+                user.EnumUserType = EnumUserType.Common;
+                //*
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

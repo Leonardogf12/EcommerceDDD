@@ -1,4 +1,5 @@
 ﻿using Entities.Notifications;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -58,5 +59,11 @@ namespace Entities.Entities
 
         [NotMapped]
         public int QtyBuy { get; set; }
+
+        [NotMapped]
+        public IFormFile Image { get; set; }
+
+        [Column("PRO_URL_IMAGE")]
+        public string? Url { get; set; }
     }
 }

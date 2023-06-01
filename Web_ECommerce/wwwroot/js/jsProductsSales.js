@@ -5,7 +5,7 @@ objectSale.AddProductInCart = function (idProduct) {
 
     var name = $("#name_" + idProduct).val();
     var qty = $("#qty_" + idProduct).val();
-  
+
     $.ajax({
         type: 'POST',
         url: 'api/AddProductCart',
@@ -24,7 +24,7 @@ objectSale.AddProductInCart = function (idProduct) {
 
 }
 
-objectSale.LoadProducts = function (){
+objectSale.LoadProducts = function () {
 
     $.ajax({
 
@@ -42,18 +42,25 @@ objectSale.LoadProducts = function (){
                 htmlContent += "<div class='col-xs-12 col-sm-4 col-md-4 col-lg-4'>";
 
                 var idName = "name_" + entitie.id;
-                var idQty = "qty_" + entitie.id;                
+                var idQty = "qty_" + entitie.id;
 
-                htmlContent += "<label id='" + idName + "'> Produto: " + entitie.name + "</label></br>";                
-                htmlContent += "<label> Valor: " + entitie.value +"</label></br>";
+                htmlContent += "<label id='" + idName + "'> Produto: " + entitie.name + "</label></br>";
+                htmlContent += "<label> Valor: " + entitie.value + "</label></br>";
+           
+                if (entitie.url != null && entitie.url != "" && entitie.url != undefined) {
+                    htmlContent += "<picture>";
+                    htmlContent += "<img class='rounded float-left' src='" + entitie.url + "'/></br>";
+                    htmlContent += "</picture>";
+                }
+
                 htmlContent += "Quantidade : <input class='form-control mt-1' type='number' value='1' id='" + idQty + "'>";
                 htmlContent += "<input type='button' class='btn btn-primary mt-3' onclick='objectSale.AddProductInCart(" + entitie.id + ")' value ='Comprar'> </br> ";
-                htmlContent +="</div>"
+                htmlContent += "</div>"
             });
-           
+
             $("#divSales").html(htmlContent);
 
-          
+
         }
     });
 
@@ -63,7 +70,7 @@ objectSale.LoadQtyCart = function () {
 
     $("#qtyCart").text(0);
 
-    
+
     $.ajax({
 
         type: 'GET',
@@ -71,7 +78,7 @@ objectSale.LoadQtyCart = function () {
         dataType: 'JSON',
         cache: false,
         async: true,
-        success: function (data) {                      
+        success: function (data) {
             if (data) {
                 $("#qtyCart").text(data.qtd);
             }

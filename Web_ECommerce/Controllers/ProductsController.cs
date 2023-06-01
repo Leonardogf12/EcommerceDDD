@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
+using System.Security;
+using System.Security.Permissions;
 
 namespace Web_ECommerce.Controllers
 {
@@ -17,12 +19,16 @@ namespace Web_ECommerce.Controllers
 
         public readonly InterfaceUserBuyApp _InterfaceUserBuyApp;
 
+        private IWebHostEnvironment _webHostEnvironment;
+
         public ProductsController(InterfaceProductApp interfaceProductApp,
             InterfaceUserBuyApp interfaceUserBuyApp,
+            IWebHostEnvironment webHostEnvironment,
             UserManager<User> userManager)
         {
             _InterfaceProductApp = interfaceProductApp;
             _InterfaceUserBuyApp = interfaceUserBuyApp;
+            _webHostEnvironment = webHostEnvironment;
             _userManager = userManager;            
         }
 
@@ -80,6 +86,8 @@ namespace Web_ECommerce.Controllers
 
                     return View("Create", product);
                 }
+
+                await SaveImageProduct(product);
             }
             catch (Exception e)
             {
@@ -134,6 +142,40 @@ namespace Web_ECommerce.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task SaveImageProduct(Product product)
+        {
+            //var productView = await _InterfaceProductApp.GetEntityById(product.Id);
+
+            try
+            {
+                if (product.Image != null)
+                {
+                    var webRoot = _webHostEnvironment.WebRootPath;
+                    var permissionSet = new PermissionSet(PermissionState.Unrestricted);
+                    var writePermission = new FileIOPermission(FileIOPermissionAccess.Append,
+                        string.Concat(webRoot, "/imgProducts"));
+                    permissionSet.AddPermission(writePermission);
+
+                    var extension = Path.GetExtension(product.Image.FileName);
+                    var nameFile = string.Concat(product.Id.ToString(), extension);
+                    var pathFileSave = string.Concat(webRoot, "\\imgProducts\\", nameFile);
+
+                    product.Image.CopyTo(new FileStream(pathFileSave, FileMode.Create));
+
+                    product.Url = string.Concat("https://localhost:7279", "/imgProducts/", nameFile);
+
+                    await _InterfaceProductApp.UpdateProduct(product);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            
         }
 
         #endregion
