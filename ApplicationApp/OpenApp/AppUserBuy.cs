@@ -1,4 +1,5 @@
 ﻿using ApplicationApp.Interfaces;
+using Domain.Interfaces.InterfaceServices;
 using Domain.Interfaces.InterfaceUserBuy;
 using Entities.Entities;
 using System;
@@ -12,10 +13,12 @@ namespace ApplicationApp.OpenApp
     public class AppUserBuy : InterfaceUserBuyApp
     {
         private readonly IUserBuy _IUserbuy;
+        private readonly IServiceUserBuy _IServiceUserBuy;
 
-        public AppUserBuy(IUserBuy IUserbuy)
+        public AppUserBuy(IUserBuy IUserbuy, IServiceUserBuy IServiceUserBuy)
         {            
             _IUserbuy = IUserbuy;
+            _IServiceUserBuy = IServiceUserBuy;
         }
 
         #region CONSULTAS CUSTOMIZADAS
@@ -23,6 +26,21 @@ namespace ApplicationApp.OpenApp
         public async Task<int> QtyProductCartUser(string idUser)
         {
             return await _IUserbuy.QtyProductCartUser(idUser);
+        }
+
+        public async Task<UserPurchase> ShoppingCart(string idUser)
+        {
+            return await _IServiceUserBuy.ShoppingCart(idUser);
+        }
+
+        public async Task<UserPurchase> PurchasedProducts(string idUser)
+        {
+            return await _IServiceUserBuy.PurchasedProducts(idUser);
+        }
+
+        public async Task<bool> ConfirmPurchaseCartUser(string idUser)
+        {
+            return await _IUserbuy.ConfirmPurchaseCartUser(idUser);
         }
 
         #endregion
@@ -52,8 +70,8 @@ namespace ApplicationApp.OpenApp
         public async Task Update(UserPurchase Object)
         {
             await _IUserbuy.Update(Object);
-        }
+        }        
 
-        #endregion        
+        #endregion
     }
 }

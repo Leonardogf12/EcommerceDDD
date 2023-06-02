@@ -1,0 +1,73 @@
+﻿@model Entities.Entities.UserPurchase
+
+@{
+    ViewData["Title"] = "FinishBuy";
+}
+
+<div>
+    <h4>Dados da Compra</h4>
+    <hr />
+    <a class="nav-link text-black" asp-area="" asp-controller="UserBuy" asp-action="ConfirmUserPurchase">Confirmar Compra</a>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.QtyPurchase)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QtyPurchase)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.QtyProducts)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QtyProducts)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalValue)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalValue)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AddressComplet)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AddressComplet)
+        </dd>
+
+    </dl>
+
+    <h4>Produtos Comprados</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Quantidade</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ListProducts)
+            {
+                <tr>
+                    @{
+                        if (!string.IsNullOrWhiteSpace(item.Url))
+                        {
+                            <td>@Html.DisplayFor(modelItem => item.Url)</td>
+                        }else
+                        {
+                            <td>N/A</td>
+                        }
+                    }
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Value)</td>
+                    <td>@Html.DisplayFor(modelItem => item.QtyBuy)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

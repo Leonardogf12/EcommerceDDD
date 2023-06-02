@@ -30,6 +30,22 @@ namespace Entities.Entities
 
         [Column("USXPU_QTY")]
         [DisplayName("Quantidade")]
-        public int QtyPurchase { get; set; }       
+        public int QtyPurchase { get; set; }
+
+
+        [NotMapped]
+        [DisplayName("Quantidade Total")]
+        public int QtyProducts { get; set; }
+
+        [NotMapped]
+        [DisplayName("Valor Total")]
+        public decimal TotalValue { get; set; }
+
+        [NotMapped]
+        [DisplayName("Endereço de Entrega")]
+        public string? AddressComplet { get; set; }
+
+        [NotMapped]        
+        public List<Product> ListProducts { get; set; }
     }
 }

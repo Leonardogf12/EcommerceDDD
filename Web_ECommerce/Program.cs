@@ -33,14 +33,13 @@ builder.Services.AddSingleton<IProduct, RepositoryProduct>();
 //*INTERFACE DE USERBUY.
 builder.Services.AddSingleton<IUserBuy, RepositoryUserBuy>();
 
-//*INTERFACE DA APLICA�AO.
+//*INTERFACE DA APLICACAO.
 builder.Services.AddSingleton<InterfaceProductApp, AppProduct>();
 builder.Services.AddSingleton<InterfaceUserBuyApp, AppUserBuy>();
 
 //*SERVICO DO DOMINIO.
 builder.Services.AddSingleton<IServiceProduct, ServiceProduct>();
-
-//*INTERFACE DA APLICA�AO.
+builder.Services.AddSingleton<IServiceUserBuy, ServiceUserPurchase>();
 
 
 

@@ -7,17 +7,57 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web_ECommerce.Controllers
 {
-    public class UserBuyControlller : Controller
+    public class UserBuyController : Controller
     {
         public readonly UserManager<User> _userManager;
 
         public readonly InterfaceUserBuyApp _InterfaceUserBuyApp;
 
-        public UserBuyControlller(InterfaceUserBuyApp InterfaceUserBuyApp, UserManager<User> userManager)
+        public UserBuyController(InterfaceUserBuyApp InterfaceUserBuyApp, 
+                                  UserManager<User> userManager)
         {
            _InterfaceUserBuyApp = InterfaceUserBuyApp;
             _userManager = userManager;
         }
+
+        #region GETS
+
+        public async Task<IActionResult> FinishBuy()
+        {
+            var userLogged = await _userManager.GetUserAsync(User);
+
+            var userPurchase = await _InterfaceUserBuyApp.PurchasedProducts(userLogged.Id);
+
+            return View(userPurchase);
+        }
+
+        public async Task<IActionResult> MyShopping(bool message = false)
+        {
+            var userLogged = await _userManager.GetUserAsync(User);
+            var userBuy = await _InterfaceUserBuyApp.PurchasedProducts(userLogged.Id);
+
+            if (message)
+            {
+                ViewBag.Success = true;
+                ViewBag.Message = "Compra efetivada com sucesso. Pague o boleto para garantir sua compra!.";
+            }
+
+            return View(userBuy);
+        }
+
+        public async Task<IActionResult> ConfirmUserPurchase()
+        {
+            var userLogged = await _userManager.GetUserAsync(User);
+
+            var result = await _InterfaceUserBuyApp.ConfirmPurchaseCartUser(userLogged.Id);
+
+            if (result)            
+                return RedirectToAction("MyShopping", new { message = true });
+            else
+                return RedirectToAction("FinishBuy");
+        }
+
+        #endregion
 
         #region APIS
 

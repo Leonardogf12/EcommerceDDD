@@ -31,12 +31,7 @@
 
 	<ItemGroup>
 		<Folder Include="Data\Migrations\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Update="wwwroot\imgProducts\14.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<Folder Include="wwwroot\imgProducts\" />
 	</ItemGroup>
 
 
