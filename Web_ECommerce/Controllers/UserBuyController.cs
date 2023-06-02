@@ -4,20 +4,25 @@ using Entities.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Web_ECommerce.Models;
 
 namespace Web_ECommerce.Controllers
 {
-    public class UserBuyController : Controller
+    public class UserBuyController : HelpQrCode
     {
         public readonly UserManager<User> _userManager;
 
         public readonly InterfaceUserBuyApp _InterfaceUserBuyApp;
 
+        private IWebHostEnvironment _webHostEnvironment;
+
         public UserBuyController(InterfaceUserBuyApp InterfaceUserBuyApp, 
-                                  UserManager<User> userManager)
+                                  UserManager<User> userManager,
+                                  IWebHostEnvironment webHostEnvironment)
         {
            _InterfaceUserBuyApp = InterfaceUserBuyApp;
             _userManager = userManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         #region GETS
@@ -55,6 +60,15 @@ namespace Web_ECommerce.Controllers
                 return RedirectToAction("MyShopping", new { message = true });
             else
                 return RedirectToAction("FinishBuy");
+        }
+
+        public async Task<IActionResult> PrintDoc()
+        {
+            var userLogged = await _userManager.GetUserAsync(User);
+
+            var userBuy = await _InterfaceUserBuyApp.PurchasedProducts(userLogged.Id);
+
+            return await Download(userBuy, _webHostEnvironment);
         }
 
         #endregion
