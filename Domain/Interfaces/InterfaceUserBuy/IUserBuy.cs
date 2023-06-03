@@ -2,6 +2,7 @@
 using Entities.Entities;
 using Entities.Enums;
 
+//*INTERFACE DE COMPRASUSUARIO SEM REGRAS DE NEGOCIO.
 namespace Domain.Interfaces.InterfaceUserBuy
 {
     public interface IUserBuy : IGenerics<UserPurchase>
@@ -11,6 +12,5 @@ namespace Domain.Interfaces.InterfaceUserBuy
         Task<UserPurchase> ProductsPurchaseByStatus(string idUser, EnumPurchaseStatus status);
 
         Task<bool> ConfirmPurchaseCartUser(string idUser);
-
     }
 }

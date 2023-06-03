@@ -39,9 +39,9 @@ namespace ApplicationApp.OpenApp
             return await _IProduct.ListProductsUser(idUser);
         }
 
-        public async Task<List<Product>> ListProductsWithStock()
+        public async Task<List<Product>> ListProductsWithStock(string description)
         {
-            return await _IServiceProduct.ListProductsWithStock();
+            return await _IServiceProduct.ListProductsWithStock(description);
         }
 
         public async Task<List<Product>> ListProductsUserCart(string idUser)

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Entities.Entities
 {
     [Table("PRODUCT")]
-    public class Product : Notifies
+    public class Product : Notifies //*ENTIDADE DE PRODUTO
     {       
         [Column("PRO_ID", Order = 0)]
         [DisplayName("Código")]

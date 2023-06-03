@@ -1,0 +1,14 @@
+
+# Esta camada contem as interfaces, tanto do tipo genericas, quanto as com regras de negocios. 
+  Tambem contem as classes de Serviços com suas funções de regra de negocio.
+
+  A divisão é feita por pasta e foi decidido da seguinte maneira.
+
+  Pasta Generics(Contem a interface generica com metodos genericos de consulta ao banco).
+
+  Pasta InterfaceProducts(Contem a interface de produto com metodos genericos SEM regras de negocio).
+
+  Pasta InterfaceServices(Contem a interface de produto COM regras de negocio).
+
+  Pasta Services(Contem a interface de produto COM regras de negocio).
+  

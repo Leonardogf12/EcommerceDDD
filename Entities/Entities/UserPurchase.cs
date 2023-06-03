@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Entities.Entities
 {
     [Table("USER_PURCHASE")]
-    public class UserPurchase : Notifies
+    public class UserPurchase : Notifies //*ENTIDADE COMPRAS DO USUARIO
     {
         [Column("USXPU_ID", Order = 0)]
         [DisplayName("Código")]        

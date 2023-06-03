@@ -2,6 +2,7 @@
 using Domain.Interfaces.InterfaceUserBuy;
 using Entities.Entities;
 
+//*CLASSE QUE HERDA DA INTERFACE IServiceUserBuy - COM REGRA DE NEGOCIOS(tem validacoes, where etc.)
 namespace Domain.Services
 {
     public class ServiceUserPurchase : IServiceUserBuy

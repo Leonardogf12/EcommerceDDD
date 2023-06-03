@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//*INTERFACE GENERICA COM METODOS GENERICOS DE CONSULTAS AO BANCO.
 namespace Domain.Interfaces.Generics
 {
-    public interface IGenerics<T> where T : class
+    public interface IGenerics<T> where T : class 
     {
         Task Add(T Object);
 

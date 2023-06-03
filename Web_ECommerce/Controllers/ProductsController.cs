@@ -224,9 +224,9 @@ namespace Web_ECommerce.Controllers
 
         [AllowAnonymous]
         [HttpGet("api/ListProductsWithStock")]
-        public async Task<JsonResult> ListProductsWithStock()
+        public async Task<JsonResult> ListProductsWithStock(string description)
         {
-            return Json(await _InterfaceProductApp.ListProductsWithStock());
+            return Json(await _InterfaceProductApp.ListProductsWithStock(description));
         }
 
         #endregion

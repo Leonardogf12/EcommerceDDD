@@ -24,8 +24,8 @@ objectSale.AddProductInCart = function (idProduct) {
 
 }
 
-objectSale.LoadProducts = function () {
-
+objectSale.LoadProducts = function (desc) {
+    console.log(desc);
     $.ajax({
 
         type: 'GET',
@@ -33,6 +33,7 @@ objectSale.LoadProducts = function () {
         dataType: 'JSON',
         cache: false,
         async: true,
+        data: { description: desc },
         success: function (data) {
 
             var htmlContent = "";
@@ -91,4 +92,11 @@ $(function () {
     objectSale.LoadProducts();
 
     objectSale.LoadQtyCart();
+
+    $("#buscar").click(
+        function () {
+        var desc = $("#description").val();
+        objectSale.LoadProducts(desc);
+     });    
+
 });

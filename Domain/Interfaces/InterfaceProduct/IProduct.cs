@@ -2,9 +2,10 @@
 using Entities.Entities;
 using System.Linq.Expressions;
 
+//*INTERFACE DE PRODUTOS SEM REGRAS DE NEGOCIO.
 namespace Domain.Interfaces.InterfaceProduct
 {
-    public interface IProduct : IGenerics<Product>
+    public interface IProduct : IGenerics<Product> 
     {
         Task<List<Product>> ListProductsUser(string idUser);
 

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Entities
 {
-    public class User : IdentityUser
+    public class User : IdentityUser //*ENTIDADE PARA CUSTOMIZAR O IDENTITY
     {       
         [Column("USR_CPF", Order = 0)]
         [MaxLength(50)]

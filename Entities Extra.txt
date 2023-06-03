@@ -1,0 +1,3 @@
+
+# Esta camada contem as entidades - classes, comuns e de tipos especiais, 
+  como o tipo Enum ou Notificações.

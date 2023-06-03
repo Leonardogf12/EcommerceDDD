@@ -10,7 +10,7 @@ namespace ApplicationApp.Interfaces
 
         Task<List<Product>> ListProductsUser(string idUser);
 
-        Task<List<Product>> ListProductsWithStock();
+        Task<List<Product>> ListProductsWithStock(string description);
 
         Task<List<Product>> ListProductsUserCart(string idUser);
 

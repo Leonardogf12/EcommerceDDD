@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
+//*INTERFACE DE PRODUTO COM REGRAS DE NEGOCIOS
 namespace Domain.Interfaces.InterfaceServices
 {
     public interface IServiceProduct
@@ -14,6 +15,6 @@ namespace Domain.Interfaces.InterfaceServices
 
         Task UpdateProduct(Product product);
 
-        Task<List<Product>> ListProductsWithStock();
+        Task<List<Product>> ListProductsWithStock(string description);
     }
 }

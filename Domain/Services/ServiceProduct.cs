@@ -1,13 +1,8 @@
 ﻿using Domain.Interfaces.InterfaceProduct;
 using Domain.Interfaces.InterfaceServices;
 using Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
+//*CLASSE QUE HERDA DA INTERFACE IServiceProduct - COM REGRA DE NEGOCIOS(tem validacoes, where etc.)
 namespace Domain.Services
 {
     public class ServiceProduct : IServiceProduct
@@ -27,16 +22,16 @@ namespace Domain.Services
 
             var validateQtyStock = product.ValidatePropertyInt(product.Stock, "Stock");
 
-            if(validateName && validateValue && validateQtyStock)
+            if (validateName && validateValue && validateQtyStock)
             {
                 product.DateRegister = DateTime.Now;
                 product.DateChange = DateTime.Now;
-               
+
                 product.Status = true;
                 await _product.Add(product);
             }
         }
-        
+
         public async Task UpdateProduct(Product product)
         {
             var validateName = product.ValidatePropertyString(product.Name, "Name");
@@ -46,15 +41,25 @@ namespace Domain.Services
             var validateQtyStock = product.ValidatePropertyInt(product.Stock, "Stock");
 
             if (validateName && validateValue && validateQtyStock)
-            {              
-                product.DateChange = DateTime.Now;              
+            {
+                product.DateChange = DateTime.Now;
                 await _product.Update(product);
             }
         }
 
-        public async Task<List<Product>> ListProductsWithStock()
+        public async Task<List<Product>> ListProductsWithStock(string description)
         {
-            return await _product.ListProducts(x=>x.Stock > 0);
-        }        
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                return await _product.ListProducts(x => x.Stock > 0);
+            }
+            else
+            {
+                return await _product.ListProducts(x => x.Stock > 0
+                                                    && x.Name.ToUpper().Contains(description.ToUpper()));
+            }
+
+        }
     }
 }
